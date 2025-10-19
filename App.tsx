@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Workflow, GeminiModel } from './types';
+import { Workflow, GeminiModel, OpenAIModel, AIProvider, AIModel } from './types';
 import { designWorkflow } from './services/geminiService';
+import { designWorkflowWithOpenAI } from './services/openaiService';
 import ScenarioInput from './components/ScenarioInput';
 import WorkflowDisplay from './components/WorkflowDisplay';
 import Loader from './components/Loader';
@@ -12,32 +13,51 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [numAgents, setNumAgents] = useState<number>(3);
-  const [selectedModel, setSelectedModel] = useState<GeminiModel>('gemini-2.5-flash');
-  const [apiKey, setApiKey] = useState<string>('');
+  const [selectedProvider, setSelectedProvider] = useState<AIProvider>('gemini');
+  const [selectedModel, setSelectedModel] = useState<AIModel>('gemini-2.5-flash');
+  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
+  const [openaiApiKey, setOpenaiApiKey] = useState<string>('');
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
   const [currentView, setCurrentView] = useState<'input' | 'result'>('input');
 
   useEffect(() => {
-    const savedApiKey = localStorage.getItem('gemini-api-key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-    } else {
+    const savedGeminiKey = localStorage.getItem('gemini-api-key');
+    const savedOpenaiKey = localStorage.getItem('openai-api-key');
+    
+    if (savedGeminiKey) {
+      setGeminiApiKey(savedGeminiKey);
+    }
+    if (savedOpenaiKey) {
+      setOpenaiApiKey(savedOpenaiKey);
+    }
+    
+    if (!savedGeminiKey && !savedOpenaiKey) {
       setIsApiKeyModalOpen(true);
     }
   }, []);
 
-  const handleSaveApiKey = (key: string) => {
-    if (key.trim()) {
-      setApiKey(key);
-      localStorage.setItem('gemini-api-key', key);
-      setIsApiKeyModalOpen(false);
-      setError(null); // Clear previous errors
+  const handleSaveApiKeys = (geminiKey: string, openaiKey: string) => {
+    if (geminiKey.trim()) {
+      setGeminiApiKey(geminiKey);
+      localStorage.setItem('gemini-api-key', geminiKey);
     }
+    if (openaiKey.trim()) {
+      setOpenaiApiKey(openaiKey);
+      localStorage.setItem('openai-api-key', openaiKey);
+    }
+    setIsApiKeyModalOpen(false);
+    setError(null); // Clear previous errors
+  };
+
+  const getCurrentApiKey = () => {
+    return selectedProvider === 'gemini' ? geminiApiKey : openaiApiKey;
   };
 
   const handleDesignWorkflow = useCallback(async () => {
-    if (!apiKey) {
-      setError('Please set your Gemini API key before designing a workflow.');
+    const currentApiKey = getCurrentApiKey();
+    
+    if (!currentApiKey) {
+      setError(`Please set your ${selectedProvider === 'gemini' ? 'Gemini' : 'OpenAI'} API key before designing a workflow.`);
       setIsApiKeyModalOpen(true);
       return;
     }
@@ -49,7 +69,14 @@ const App: React.FC = () => {
     setError(null);
     setWorkflow(null);
     try {
-      const result = await designWorkflow(scenario, numAgents, apiKey, selectedModel);
+      let result: Workflow;
+      
+      if (selectedProvider === 'gemini') {
+        result = await designWorkflow(scenario, numAgents, currentApiKey, selectedModel as GeminiModel);
+      } else {
+        result = await designWorkflowWithOpenAI(scenario, numAgents, currentApiKey, selectedModel as OpenAIModel);
+      }
+      
       setWorkflow(result);
       setCurrentView('result');
     } catch (err) {
@@ -61,7 +88,7 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [scenario, numAgents, apiKey]);
+  }, [scenario, numAgents, selectedProvider, selectedModel, geminiApiKey, openaiApiKey]);
 
   const handleWorkflowChange = useCallback((updatedWorkflow: Workflow) => {
     setWorkflow(updatedWorkflow);
@@ -76,19 +103,20 @@ const App: React.FC = () => {
       <ApiKeyModal 
         isOpen={isApiKeyModalOpen}
         onClose={() => setIsApiKeyModalOpen(false)}
-        onSave={handleSaveApiKey}
-        currentApiKey={apiKey}
+        onSave={handleSaveApiKeys}
+        currentGeminiKey={geminiApiKey}
+        currentOpenaiKey={openaiApiKey}
       />
       <div className="h-screen bg-gray-900 text-gray-100 flex flex-col overflow-hidden">
           <header className="bg-gray-800 border-b border-gray-700 px-4 sm:px-6 lg:px-8 py-4 flex-shrink-0">
             <div className="w-full flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <div className="text-xl sm:text-2xl font-bold text-white">
+                <div className="text-xl sm:text-2xl font-bold text-green-400">
                   AWA
                 </div>
               </div>
@@ -204,9 +232,9 @@ const App: React.FC = () => {
                   <div className="mb-6 flex justify-center">
                     <button
                       onClick={handleDesignWorkflow}
-                      disabled={isLoading || !apiKey}
+                      disabled={isLoading || !getCurrentApiKey()}
                       className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center"
-                      title={!apiKey ? "Please set your Gemini API key first" : ""}
+                      title={!getCurrentApiKey() ? `Please set your ${selectedProvider === 'gemini' ? 'Gemini' : 'OpenAI'} API key first` : ""}
                     >
                       {isLoading ? (
                         <>
