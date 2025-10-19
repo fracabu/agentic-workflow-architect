@@ -115,6 +115,24 @@ const App: React.FC = () => {
               <WorkflowDisplay workflow={workflow} onWorkflowChange={handleWorkflowChange} />
             )}
           </main>
+          
+          <footer className="mt-16 pb-8 text-center">
+            <div className="max-w-4xl mx-auto">
+              <p className="text-sm text-gray-500 mb-2">
+                Progetto creato con l'aiuto di <span className="text-blue-400">Gemini</span> e <span className="text-blue-400">Clade Code</span>
+              </p>
+              <p className="text-xs text-gray-600">
+                Utilizzando le risorse del canale di <a 
+                  href="https://www.youtube.com/@markkashef" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Mark Kashef
+                </a>
+              </p>
+            </div>
+          </footer>
         </div>
       </div>
     </>
