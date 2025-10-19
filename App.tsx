@@ -37,11 +37,11 @@ const App: React.FC = () => {
   }, []);
 
   const handleSaveApiKeys = (geminiKey: string, openaiKey: string) => {
-    if (geminiKey.trim()) {
+    if (geminiKey?.trim()) {
       setGeminiApiKey(geminiKey);
       localStorage.setItem('gemini-api-key', geminiKey);
     }
-    if (openaiKey.trim()) {
+    if (openaiKey?.trim()) {
       setOpenaiApiKey(openaiKey);
       localStorage.setItem('openai-api-key', openaiKey);
     }
