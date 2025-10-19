@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { GeminiModel } from '../types';
 
 interface ScenarioInputProps {
   scenario: string;
@@ -8,6 +9,8 @@ interface ScenarioInputProps {
   numAgents: number;
   setNumAgents: (num: number) => void;
   hasApiKey: boolean;
+  selectedModel: GeminiModel;
+  setSelectedModel: (model: GeminiModel) => void;
 }
 
 interface ScenarioExample {
@@ -217,6 +220,24 @@ const ScenarioInput: React.FC<ScenarioInputProps> = ({ scenario, setScenario, on
               {n}
             </button>
           ))}
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <label htmlFor="model-select" className="block text-lg font-semibold mb-3 text-gray-300 text-center">
+          Gemini Model
+        </label>
+        <div className="flex items-center justify-center">
+          <select
+            id="model-select"
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value as GeminiModel)}
+            disabled={isLoading}
+            className="bg-gray-900 border border-gray-700 rounded-md p-3 text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+          >
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash (Veloce)</option>
+            <option value="gemini-2.5-pro">Gemini 2.5 Pro (Qualità Superiore)</option>
+          </select>
         </div>
       </div>
 

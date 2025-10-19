@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Workflow } from './types';
+import { Workflow, GeminiModel } from './types';
 import { designWorkflow } from './services/geminiService';
 import ScenarioInput from './components/ScenarioInput';
 import WorkflowDisplay from './components/WorkflowDisplay';
@@ -12,6 +12,7 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [numAgents, setNumAgents] = useState<number>(3);
+  const [selectedModel, setSelectedModel] = useState<GeminiModel>('gemini-2.5-flash');
   const [apiKey, setApiKey] = useState<string>('');
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
 
@@ -47,7 +48,7 @@ const App: React.FC = () => {
     setError(null);
     setWorkflow(null);
     try {
-      const result = await designWorkflow(scenario, numAgents, apiKey);
+      const result = await designWorkflow(scenario, numAgents, apiKey, selectedModel);
       setWorkflow(result);
     } catch (err) {
       const errorMessage = err instanceof Error ? `Failed to design workflow: ${err.message}` : 'An unknown error occurred.';
@@ -100,6 +101,8 @@ const App: React.FC = () => {
               numAgents={numAgents}
               setNumAgents={setNumAgents}
               hasApiKey={!!apiKey}
+              selectedModel={selectedModel}
+              setSelectedModel={setSelectedModel}
             />
 
             {error && (

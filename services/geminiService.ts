@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import { Workflow, AgentDefinition } from '../types';
+import { Workflow, AgentDefinition, GeminiModel } from '../types';
 
 const responseSchema = {
   type: Type.OBJECT,
@@ -33,7 +33,7 @@ const responseSchema = {
   required: ["agents", "executionPrompt"],
 };
 
-export const designWorkflow = async (scenario: string, numAgents: number, apiKey: string): Promise<Workflow> => {
+export const designWorkflow = async (scenario: string, numAgents: number, apiKey: string, model: GeminiModel = 'gemini-2.5-flash'): Promise<Workflow> => {
   if (!apiKey) {
     throw new Error("Gemini API key not provided.");
   }
@@ -62,7 +62,7 @@ User Scenario:
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: model,
       contents: metaPrompt,
       config: {
         responseMimeType: 'application/json',
