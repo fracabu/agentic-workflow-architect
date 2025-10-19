@@ -63,7 +63,7 @@ Le pagine Facebook e Instagram completamente impostate e ottimizzate per la conv
 ];
 
 
-const ScenarioInput: React.FC<ScenarioInputProps> = ({ scenario, setScenario, onDesign, isLoading, numAgents, setNumAgents, hasApiKey }) => {
+const ScenarioInput: React.FC<ScenarioInputProps> = ({ scenario, setScenario, onDesign, isLoading, numAgents, setNumAgents, hasApiKey, selectedModel, setSelectedModel }) => {
   const [customExamples, setCustomExamples] = useState<ScenarioExample[]>([]);
 
   useEffect(() => {
