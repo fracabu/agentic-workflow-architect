@@ -181,8 +181,8 @@ const ScenarioInput: React.FC<ScenarioInputProps> = ({ scenario, setScenario, on
             </label>
             <textarea
                 id="scenario"
-                rows={8}
-                className="w-full bg-gray-900 border border-gray-700 rounded-md p-3 text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 placeholder-gray-500"
+                rows={4}
+                className="w-full bg-gray-900 border border-gray-700 rounded-md p-3 text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 placeholder-gray-500 resize-none"
                 placeholder="e.g., Launch a marketing campaign for a new vegan snack brand..."
                 value={scenario}
                 onChange={(e) => setScenario(e.target.value)}
