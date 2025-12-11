@@ -67,3 +67,4 @@ This application is designed to run in a web environment where the Google Gemini
 3.  Open the application in your browser.
 
 The application is now ready to use. Enter a scenario, choose the number of agents, and click "Design Workflow" to begin.
+
