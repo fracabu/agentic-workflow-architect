@@ -1,5 +1,8 @@
 # Agentic Workflow Architect
 
+![CI](https://github.com/fracabu/agentic-workflow-architect/actions/workflows/ci.yml/badge.svg)
+
+
 Agentic Workflow Architect is a powerful web application designed to help users conceptualize and design multi-agent AI systems. By providing a high-level scenario, the application leverages the Google Gemini API to generate a complete workflow, including detailed definitions for specialized AI agents and an initial execution prompt to set the system in motion.
 
 This tool is perfect for developers, prompt engineers, and system designers who want to rapidly prototype complex, agent-based workflows without starting from scratch.
