@@ -1,73 +1,202 @@
-# Agentic Workflow Architect
+<h1 align="center">Agentic Workflow Architect</h1>
+<h3 align="center">Design multi-agent AI systems from natural language</h3>
 
-![CI](https://github.com/fracabu/agentic-workflow-architect/actions/workflows/ci.yml/badge.svg)
+<p align="center">
+  <em>Transform scenarios into complete agent workflows with Gemini AI</em>
+</p>
 
+<p align="center">
+  <img src="https://github.com/fracabu/agentic-workflow-architect/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Gemini_AI-4285F4?style=flat-square&logo=google&logoColor=white" alt="Gemini AI" />
+</p>
 
-Agentic Workflow Architect is a powerful web application designed to help users conceptualize and design multi-agent AI systems. By providing a high-level scenario, the application leverages the Google Gemini API to generate a complete workflow, including detailed definitions for specialized AI agents and an initial execution prompt to set the system in motion.
+<p align="center">
+  :gb: <a href="#english">English</a> | :it: <a href="#italiano">Italiano</a>
+</p>
 
-This tool is perfect for developers, prompt engineers, and system designers who want to rapidly prototype complex, agent-based workflows without starting from scratch.
+---
 
-![Agentic Workflow Architect Screenshot](https://i.imgur.com/example.png) <!-- Placeholder: Replace with an actual screenshot -->
+## Overview
 
-## ✨ Core Features
+![Agentic Workflow Architect Overview](assets/agentic-workflow-overview.png)
 
--   **Scenario-Driven Design:** Simply describe your goal in natural language, and the application designs the entire agentic system.
--   **Customizable Agent Count:** Specify the exact number of agents you need for your workflow, from a single, multi-skilled agent to a larger team.
--   **Detailed Agent Generation:** Automatically creates specialized agents with unique names, clear descriptions, and comprehensive, high-quality prompts.
--   **Unified Execution Prompt:** Generates a single, cohesive prompt to orchestrate the agents and kick off the entire workflow.
--   **Fully Interactive UI:** Edit any part of the generated workflow directly in the browser. You can refine agent names, descriptions, prompts, and the final execution command.
--   **Copy & Download:** Easily copy individual prompts for use in code editors or terminals. A terminal-safe copy option is included to prevent shell injection issues. You can also download individual agent definitions or the execution prompt as Markdown files.
--   **Example Scenarios:** Comes with a set of pre-built examples to demonstrate the application's capabilities.
--   **Save Custom Examples:** Save your own scenarios directly in your browser's local storage for future use.
+---
 
-## ⚙️ How It Works
+<a name="english"></a>
+## :gb: English
 
-1.  **Input:** The user enters a descriptive scenario (e.g., "Launch a social media campaign for a new eco-friendly product") and selects the desired number of agents.
-2.  **API Call:** The application constructs a detailed "meta-prompt" that instructs the Google Gemini API (`gemini-2.5-flash`) to act as an "Agentic Workflow Architect."
-3.  **AI Analysis:** Gemini analyzes the scenario, breaks it down into logical tasks, and designs a set of specialized agents to handle those tasks. It generates a name, description, and a detailed operational prompt for each agent.
-4.  **Structured Response:** The API is configured to return a structured JSON object containing the agent definitions and a final execution prompt, ensuring a consistent and parseable output.
-5.  **Rendering:** The frontend receives the JSON data and renders it in a clean, interactive user interface.
-6.  **Refinement:** The user can then review, edit, copy, or download the generated workflow components for use in their own projects.
+### What is Agentic Workflow Architect?
 
-## 🚀 Tech Stack
+A web application that helps you design **multi-agent AI systems** by simply describing your goal in natural language. The app uses Google Gemini to generate complete agent definitions, prompts, and execution workflows.
 
--   **Frontend:** React, TypeScript, Tailwind CSS
--   **AI Model:** Google Gemini API (`gemini-2.5-flash`)
+### Features
 
-## 📂 Project Structure
+- **Scenario-Driven Design**: Describe your goal, get a complete agentic system
+- **Customizable Agent Count**: Specify 1-10 agents for your workflow
+- **Detailed Agent Generation**: Creates agents with names, descriptions, and operational prompts
+- **Unified Execution Prompt**: Generates a single prompt to orchestrate all agents
+- **Interactive UI**: Edit any part of the generated workflow in the browser
+- **Copy & Download**: Export prompts as Markdown or copy for terminal use
+- **Example Scenarios**: Pre-built examples to demonstrate capabilities
+- **Save Custom Examples**: Store your scenarios in local storage
+
+### How It Works
+
+```
+User Scenario
+     |
+     v
++-------------------+
+|   Gemini 2.5      |  Analyzes scenario
+|   Flash API       |  Designs agent team
++-------------------+
+     |
+     v
++-------------------+
+|  Agent Definitions|  Name, description,
+|  + Prompts        |  operational prompt
++-------------------+
+     |
+     v
++-------------------+
+| Execution Prompt  |  Single prompt to
+|                   |  orchestrate all agents
++-------------------+
+```
+
+### Quick Start
+
+```bash
+# Clone
+git clone https://github.com/fracabu/agentic-workflow-architect.git
+cd agentic-workflow-architect
+
+# Install
+npm install
+
+# Configure
+# Set VITE_GEMINI_API_KEY in .env
+
+# Run
+npm run dev
+```
+
+### Example Scenarios
+
+| Scenario | Agents |
+|----------|--------|
+| Launch social media campaign | Marketing, Content, Analytics |
+| Build SaaS MVP | PM, Frontend, Backend, QA |
+| Analyze competitor landscape | Research, Data, Strategy |
+
+---
+
+<a name="italiano"></a>
+## :it: Italiano
+
+### Cos'e Agentic Workflow Architect?
+
+Un'applicazione web che ti aiuta a progettare **sistemi AI multi-agente** semplicemente descrivendo il tuo obiettivo in linguaggio naturale. L'app usa Google Gemini per generare definizioni complete degli agenti, prompt e workflow di esecuzione.
+
+### Funzionalita
+
+- **Design Guidato dallo Scenario**: Descrivi l'obiettivo, ottieni un sistema agentico completo
+- **Numero Agenti Personalizzabile**: Specifica da 1 a 10 agenti per il workflow
+- **Generazione Agenti Dettagliata**: Crea agenti con nomi, descrizioni e prompt operativi
+- **Prompt di Esecuzione Unificato**: Genera un singolo prompt per orchestrare tutti gli agenti
+- **UI Interattiva**: Modifica qualsiasi parte del workflow generato nel browser
+- **Copia & Download**: Esporta i prompt come Markdown o copia per uso terminale
+- **Scenari di Esempio**: Esempi pre-costruiti per dimostrare le capacita
+- **Salva Esempi Personalizzati**: Memorizza i tuoi scenari in local storage
+
+### Come Funziona
+
+```
+Scenario Utente
+     |
+     v
++-------------------+
+|   Gemini 2.5      |  Analizza lo scenario
+|   Flash API       |  Progetta il team di agenti
++-------------------+
+     |
+     v
++-------------------+
+| Definizioni Agenti|  Nome, descrizione,
+|  + Prompt         |  prompt operativo
++-------------------+
+     |
+     v
++-------------------+
+| Prompt Esecuzione |  Singolo prompt per
+|                   |  orchestrare tutti gli agenti
++-------------------+
+```
+
+### Quick Start
+
+```bash
+# Clona
+git clone https://github.com/fracabu/agentic-workflow-architect.git
+cd agentic-workflow-architect
+
+# Installa
+npm install
+
+# Configura
+# Imposta VITE_GEMINI_API_KEY in .env
+
+# Esegui
+npm run dev
+```
+
+### Scenari di Esempio
+
+| Scenario | Agenti |
+|----------|--------|
+| Lancio campagna social media | Marketing, Content, Analytics |
+| Costruire MVP SaaS | PM, Frontend, Backend, QA |
+| Analisi competitor | Research, Data, Strategy |
+
+---
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **AI Model**: Google Gemini API (`gemini-2.5-flash`)
+
+## Project Structure
 
 ```
 .
 ├── components/
-│   ├── AgentCard.tsx         # Renders a single agent's details
-│   ├── AgentDefinitions.tsx  # Container for all agent cards
-│   ├── ExecutionPrompt.tsx   # Displays the final execution prompt
-│   ├── Loader.tsx            # A simple loading spinner
-│   ├── ScenarioInput.tsx     # The main input form for the user
-│   └── WorkflowDisplay.tsx   # Container for the entire generated output
+│   ├── AgentCard.tsx         # Single agent details
+│   ├── AgentDefinitions.tsx  # All agent cards container
+│   ├── ExecutionPrompt.tsx   # Final execution prompt
+│   ├── ScenarioInput.tsx     # User input form
+│   └── WorkflowDisplay.tsx   # Generated output container
 ├── services/
-│   └── geminiService.ts      # Logic for interacting with the Gemini API
-├── types.ts                  # TypeScript type definitions
-├── App.tsx                   # Main application component
-├── index.html                # Main HTML entry point
-├── index.tsx                 # React root renderer
-└── README.md                 # This file
+│   └── geminiService.ts      # Gemini API integration
+├── App.tsx                   # Main component
+└── README.md
 ```
 
-## 🔧 Getting Started
+---
 
-This application is designed to run in a web environment where the Google Gemini API key is securely provided.
+## License
 
-### Prerequisites
+MIT
 
--   A modern web browser (Chrome, Firefox, Safari, Edge).
--   A valid Google Gemini API key.
+---
 
-### Running the Application
+<p align="center">
+  <strong>Agentic Workflow Architect</strong> — Design AI agent teams in seconds
+</p>
 
-1.  Ensure the environment you are running this in has access to a `process.env.API_KEY` variable containing your Gemini API key.
-2.  Serve the `index.html` file through a local web server.
-3.  Open the application in your browser.
-
-The application is now ready to use. Enter a scenario, choose the number of agents, and click "Design Workflow" to begin.
-
+<p align="center">
+  <a href="https://github.com/fracabu">
+    <img src="https://img.shields.io/badge/Made_by-fracabu-8B5CF6?style=flat-square" alt="Made by fracabu" />
+  </a>
+</p>
